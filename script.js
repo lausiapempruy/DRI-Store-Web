@@ -14,12 +14,12 @@ import { getFirestore, doc, getDoc, setDoc, collection,
 const CONFIG = {
   // Firebase
   firebase: {
-    apiKey:            "YOUR_FIREBASE_API_KEY",
-    authDomain:        "YOUR_PROJECT.firebaseapp.com",
-    projectId:         "YOUR_PROJECT_ID",
-    storageBucket:     "YOUR_PROJECT.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId:             "YOUR_APP_ID"
+    apiKey:            "AIzaSyCPLEWtnMZhdwbWHZXD2QcTcCIAgC_FmJY",
+    authDomain:        "dri-store-web.firebaseapp.com",
+    projectId:         "dri-store-web",
+    storageBucket:     "dri-store-web.firebasestorage.app",
+    messagingSenderId: "921301753470",
+    appId:             "1:921301753470:web:5df55d8e1ffc4b52a1c22f"
   },
   // Discord OAuth2
   discord: {
