@@ -23,7 +23,7 @@ const CONFIG = {
   },
   // Discord OAuth2
   discord: {
-    clientId:    "https://discord.com/oauth2/authorize?client_id=1495230158398033970",
+    clientId:    "discord.com/oauth2/authorize?client_id=1495230158398033970",
     redirectUri: window.location.origin + window.location.pathname,
     serverId:    "1495076646502531072",
     adminRoleId: "1495228138320429176",
