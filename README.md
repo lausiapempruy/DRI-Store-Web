@@ -57,7 +57,7 @@ Dengan harga yang manusiawi dan murah, serta layanan yang sangat ramah — pengg
 > | Status | Keterangan |
 > |--------|------------|
 > ✅ **Layak Dijual** | Produk siap dibeli |
-> ⏳ **Pre-Order** | Tersedia dengan harga **50% dari harga normal** |
+> ⏳ **Pre-Order** | Tersedia dengan harga kenaikan sebanyak **50% dari harga normal** |
 > ❌ **Tidak Layak** | Produk belum/tidak bisa dijual |
 >
 > Sistem ini berlaku untuk semua produk yang terdaftar di Product List DRI Store.
