@@ -17,7 +17,7 @@ Dengan harga yang manusiawi dan murah, serta layanan yang sangat ramah — pengg
 
 ### 🔗 Quick Links
 
-- 📜 [Server Rules](https://discord.com/channels/1495076646502531072/1495077994035675356/1495327810397540452)
+- 📜 [Server Rules](https://discord.com/channels/1495076646502531072/1495077994035675356/1495327810397540452) <<jika 
 - ❓ [FAQ — About Order](#-about-order)
 - ❓ [FAQ — About Payment](#-about-payment)
 - ❓ [FAQ — About BPOM DS](#-about-bpom-ds)
