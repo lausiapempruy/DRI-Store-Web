@@ -43,7 +43,7 @@ Dengan harga yang manusiawi dan murah, serta layanan yang sangat ramah — pengg
 
 **Q: Untuk metode payment tersedia apa saja?**
 > Silakan cek channel payment di server Discord kami untuk informasi metode pembayaran yang tersedia.
-
+> [Payment Method Channel](https://discord.com/channels/1495076646502531072/1495079114279878878/1496852081640865893)
 ---
 
 ### 🏷️ About BPOM DS
