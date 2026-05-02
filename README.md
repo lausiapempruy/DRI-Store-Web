@@ -2,29 +2,6 @@
 
 ---
 
-## 📋 Server Profile
-
-**DRI Store** adalah store yang menjual produk **Roblox Model** dan lainnya.
-
-Dengan harga yang manusiawi dan murah, serta layanan yang sangat ramah — pengguna bisa mendapatkan berbagai Roblox Model dari DRI Store, maupun jasa yang akan tersedia nantinya.
-
-| Info | Detail |
-|------|--------|
-| 📦 Produk | Roblox Model & lainnya |
-| 💰 Harga | Manusiawi & terjangkau |
-| 🤝 Layanan | Ramah & responsif |
-| 🌐 Website | Coming Soon |
-
-### 🔗 Quick Links
-
-- 📜 [Server Rules](https://discord.com/channels/1495076646502531072/1495077994035675356/1495327810397540452) *pastikan join server DRI Store terlebih dahulu*
-- ❓ [FAQ — About Order](#-about-order)
-- ❓ [FAQ — About Payment](#-about-payment)
-- ❓ [FAQ — About BPOM DS](#-about-bpom-ds)
-- 🗃️ [DRI Store Product List](https://discord.com/channels/1495076646502531072/1495226315262001213/1495330818594443305) *pastikan join server DRI Store terlebih dahulu*
-
----
-
 ## ❓ FAQ
 
 > Kumpulan pertanyaan yang sering ditanyakan seputar DRI Store.
