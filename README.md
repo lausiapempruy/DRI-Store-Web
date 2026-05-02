@@ -17,11 +17,11 @@ Dengan harga yang manusiawi dan murah, serta layanan yang sangat ramah — pengg
 
 ### 🔗 Quick Links
 
-- 📜 [Server Rules](https://discord.com/channels/1495076646502531072/1495077994035675356/1495327810397540452) <<jika 
+- 📜 [Server Rules](https://discord.com/channels/1495076646502531072/1495077994035675356/1495327810397540452) *pastikan join server DRI Store terlebih dahulu*
 - ❓ [FAQ — About Order](#-about-order)
 - ❓ [FAQ — About Payment](#-about-payment)
 - ❓ [FAQ — About BPOM DS](#-about-bpom-ds)
-- 🗃️ [DRI Store Product List](https://discord.com/channels/1495076646502531072/1495226315262001213/1495330818594443305)
+- 🗃️ [DRI Store Product List](https://discord.com/channels/1495076646502531072/1495226315262001213/1495330818594443305) *pastikan join server DRI Store terlebih dahulu*
 
 ---
 
@@ -43,7 +43,7 @@ Dengan harga yang manusiawi dan murah, serta layanan yang sangat ramah — pengg
 
 **Q: Untuk metode payment tersedia apa saja?**
 > Silakan cek channel payment di server Discord kami untuk informasi metode pembayaran yang tersedia.
-> [Payment Method Channel](https://discord.com/channels/1495076646502531072/1495079114279878878/1496852081640865893)
+> [Payment Method Channel](https://discord.com/channels/1495076646502531072/1495079114279878878/1496852081640865893) *pastikan join server DRI Store terlebih dahulu*
 ---
 
 ### 🏷️ About BPOM DS
