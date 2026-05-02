@@ -1,42 +1,55 @@
-# 🛒 DRI STORE
+# FAQ — DRI Store
 
----
+<!-- DRI_STORE_FAQ_START -->
 
-## ❓ FAQ
-
-> Kumpulan pertanyaan yang sering ditanyakan seputar DRI Store.
-> Tidak menemukan jawaban? Hubungi admin di server Discord kami.
-
----
-
-### 🛒 About Order
+## 🛒 About Order
 
 **Q: Apakah sudah siap order/jualan sekarang?**
-> Kami belum siap, dan masih dalam tahap pembangunan/setup sebelum mulai berjualan. Pantau terus pengumuman di server!
+A: Kami belum siap, dan masih dalam pembangunan/setup sebelum mulai berjualan. Pantau terus pengumuman di server Discord kami!
+
+**Q: Bagaimana cara melakukan order?**
+A: Setelah store resmi buka, order bisa dilakukan langsung melalui server Discord DRI Store di channel yang tersedia.
+
+**Q: Berapa lama proses pengiriman produk?**
+A: Untuk produk digital seperti Roblox Model, pengiriman dilakukan instan setelah pembayaran dikonfirmasi.
 
 ---
 
-### 💳 About Payment
+## 💳 About Payment
 
 **Q: Untuk metode payment tersedia apa saja?**
-> Silakan cek channel payment di server Discord kami untuk informasi metode pembayaran yang tersedia.
----
+A: Silakan cek channel payment di server Discord kami untuk informasi lengkap metode pembayaran yang tersedia.
 
-### 🏷️ About BPOM DS
+**Q: Apakah bisa bayar pakai DANA / GoPay / OVO?**
+A: Info metode pembayaran lengkap akan diumumkan saat store resmi buka. Join Discord untuk update terbaru.
 
-**Q: Apa itu *BPOM DS*?**
-> **BPOM DS** adalah sistem internal DRI Store, terinspirasi dari **BPOM RI** — namun berbeda fungsinya.
->
-> Kalau BPOM RI mengurus kelayakan makanan & halal, **BPOM DS** (*Badan Pengawas Obat dan Model DRI Store*) bertugas mengecek kelayakan produk DRI Store, yaitu:
->
-> | Status | Keterangan |
-> |--------|------------|
-> ✅ **Layak Dijual** | Produk siap dibeli |
-> ⏳ **Pre-Order** | Tersedia dengan harga kenaikan sebanyak **50% dari harga normal** |
-> ❌ **Tidak Layak** | Produk belum/tidak bisa dijual |
->
-> Sistem ini berlaku untuk semua produk yang terdaftar di Product List DRI Store.
+**Q: Apakah ada refund jika produk bermasalah?**
+A: Kebijakan refund akan tersedia saat store resmi buka. Kami berkomitmen untuk layanan yang adil dan transparan.
 
 ---
 
-*README ini diperbarui secara berkala. Untuk pertanyaan lain, silakan tanya langsung di server Discord DRI Store.*
+## 🏷️ About BPOM DS
+
+**Q: Apa itu BPOM DS?**
+A: BPOM DS (Badan Pengawas Obat dan Model DRI Store) adalah sistem sertifikasi internal DRI Store. Berbeda dengan BPOM RI yang mengurus makanan, BPOM DS mengecek kelayakan produk Roblox Model sebelum dijual.
+
+**Q: Apa saja status BPOM DS?**
+A: Ada 3 status: Layak Dijual (siap dibeli), Pre-Order (harga 50% dari normal), dan Tidak Layak (belum/tidak bisa dijual).
+
+**Q: Apakah semua produk wajib punya sertifikasi BPOM DS?**
+A: Ya. Semua produk DRI Store wajib melalui proses pengecekan BPOM DS sebelum listed di Product List.
+
+---
+
+## 🧱 About Products
+
+**Q: Produk apa saja yang dijual DRI Store?**
+A: DRI Store menjual Roblox Model dan produk digital lainnya. Detail produk bisa dilihat langsung di server Discord kami.
+
+**Q: Apakah produk bisa di-custom sesuai kebutuhan?**
+A: Info tentang jasa custom akan diumumkan menyusul. Pantau server Discord untuk update.
+
+**Q: Apakah produk DRI Store original?**
+A: Ya. Semua produk yang telah mendapat sertifikasi BPOM DS dijamin kualitas dan keasliannya.
+
+<!-- DRI_STORE_FAQ_END -->
