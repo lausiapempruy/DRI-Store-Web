@@ -22,7 +22,6 @@ Dengan harga yang manusiawi dan murah, serta layanan yang sangat ramah — pengg
 - ❓ [FAQ — About Payment](#-about-payment)
 - ❓ [FAQ — About BPOM DS](#-about-bpom-ds)
 - 🗃️ [DRI Store Product List](https://discord.com/channels/1495076646502531072/1495226315262001213/1495330818594443305)
-- ⛔ DRI Store Web — *Coming Soon*
 
 ---
 
