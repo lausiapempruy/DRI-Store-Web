@@ -1,80 +1,82 @@
-/* ============================================================
-   DRI Store — app.js
-   Production JS: Security + FAQ Parser + Animations + Cursor
-   ============================================================ */
-
 'use strict';
 
-/* ── SECURITY LAYER ────────────────────────────────────────── */
-(function() {
-  // 1. Disable right-click
+/* ================================================================
+   DRI Store — app.js  (single file, no split)
+   1. Security
+   2. Discord link injection
+   3. Cursor
+   4. Particle canvas
+   5. Navbar scroll
+   6. Hamburger
+   7. Scroll reveal
+   8. Interactive 3D card
+   9. Card tilt on about/team cards
+   10. FAQ — fetch & parse README.md
+   11. Smooth anchor scroll
+================================================================ */
+
+/* ── 1. SECURITY ──────────────────────────────────────────── */
+(function securityLayer() {
+  // Disable right-click context menu
   document.addEventListener('contextmenu', e => e.preventDefault());
 
-  // 2. Disable common devtools shortcuts
+  // Block keyboard shortcuts for source/devtools
   document.addEventListener('keydown', e => {
-    const blocked = (
+    const k = e.key.toUpperCase();
+    if (
       e.key === 'F12' ||
-      (e.ctrlKey && e.shiftKey && ['I','J','C','U','K'].includes(e.key.toUpperCase())) ||
-      (e.ctrlKey && e.key.toUpperCase() === 'U') ||
-      (e.ctrlKey && e.key.toUpperCase() === 'S') ||
-      (e.ctrlKey && e.key.toUpperCase() === 'A') ||
-      (e.ctrlKey && e.key.toUpperCase() === 'P')
-    );
-    if (blocked) e.preventDefault();
-  });
+      (e.ctrlKey && e.shiftKey && ['I','J','C','K'].includes(k)) ||
+      (e.ctrlKey && !e.shiftKey && ['U','S','P'].includes(k))
+    ) { e.preventDefault(); return false; }
+  }, true);
 
-  // 3. Detect devtools open (size heuristic)
-  let devtoolsOpen = false;
-  const threshold = 160;
-  function detectDevtools() {
-    const widthDiff = window.outerWidth - window.innerWidth;
-    const heightDiff = window.outerHeight - window.innerHeight;
-    if (widthDiff > threshold || heightDiff > threshold) {
-    } else {
-      devtoolsOpen = false;
-    }
-  }
-  setInterval(detectDevtools, 1000);
+  // Disable drag on images
+  document.addEventListener('dragstart', e => { if (e.target.tagName === 'IMG') e.preventDefault(); });
 
-  // 4. Disable text selection on sensitive areas
-  document.addEventListener('selectstart', e => {
-    if (!e.target.matches('input,textarea,[contenteditable]')) {
+  // Override copy — replace clipboard content with attribution
+  document.addEventListener('copy', e => {
+    const sel = window.getSelection ? window.getSelection().toString() : '';
+    if (sel && sel.length > 0) {
+      e.clipboardData.setData('text/plain', sel + '\n\n© DRI Store 2026 — dristore');
       e.preventDefault();
     }
   });
 
-  // 5. Disable drag
-  document.addEventListener('dragstart', e => e.preventDefault());
-
-  // 6. Protect Discord link — encode so it's not plain text in DOM
-  // Links are set dynamically by JS below
-  const DISCORD_ENCODED = atob('aHR0cHM6Ly9kaXNjb3JkLmdnL1VzN01IYjhWUUU=');
-  const discordBtns = document.querySelectorAll(
-    '#discordNavBtn,#discordMobileBtn,#heroDiscordBtn,#ctaDiscordBtn,#footerDiscordBtn'
-  );
-  discordBtns.forEach(btn => {
-    if (btn) btn.setAttribute('href', DISCORD_ENCODED);
-  });
-
-  // 7. Warn on copy attempt
-  document.addEventListener('copy', e => {
-    e.clipboardData.setData('text/plain', '© DRI Store — Konten ini dilindungi.');
-    e.preventDefault();
-  });
-
-  // 8. Console warning
-  const style = 'color:#f87171;font-size:14px;font-weight:bold';
-  console.log('%c⛔ STOP!', style);
-  console.log('%cJangan lanjutkan jika kamu tidak tahu apa yang kamu lakukan. Website ini milik DRI Store.', 'color:#8888aa;font-size:12px');
+  // Console warning
+  try {
+    const s = 'color:#f87171;font-size:15px;font-weight:bold';
+    const s2 = 'color:#8888aa;font-size:12px';
+    console.log('%c⛔ PERHATIAN', s);
+    console.log('%cWebsite ini milik DRI Store. Aktivitas mencurigakan akan dilaporkan.', s2);
+  } catch(_) {}
 })();
 
-/* ── CURSOR ────────────────────────────────────────────────── */
-(function() {
-  const cursor = document.getElementById('cursor');
-  const dot = document.getElementById('cursorDot');
-  if (!cursor || !dot) return;
+/* ── 2. DISCORD LINK INJECTION ────────────────────────────── */
+(function injectDiscordLinks() {
+  // Stored as base64 so it's not a plain clickable URL in source
+  const encoded = 'aHR0cHM6Ly9kaXNjb3JkLmdnL1VzN01IYjhWUUU=';
+  const url = atob(encoded);
 
-  let mx = 0, my = 0, cx = 0, cy = 0;
+  const ids = ['discordNavBtn','discordMobileBtn','heroDiscordBtn','ctaDiscordBtn','footerDiscordBtn'];
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.setAttribute('href', url);
+    el.setAttribute('target', '_blank');
+    el.setAttribute('rel', 'noopener noreferrer');
+  });
+})();
+
+/* ── 3. CUSTOM CURSOR ─────────────────────────────────────── */
+(function initCursor() {
+  // Only on pointer: fine (mouse) devices
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+
+  const ring = document.getElementById('cursor');
+  const dot = document.getElementById('cursorDot');
+  if (!ring || !dot) return;
+
+  let mx = -100, my = -100, rx = -100, ry = -100;
 
   document.addEventListener('mousemove', e => {
     mx = e.clientX; my = e.clientY;
@@ -82,28 +84,32 @@
     dot.style.top = my + 'px';
   });
 
-  function animateCursor() {
-    cx += (mx - cx) * 0.12;
-    cy += (my - cy) * 0.12;
-    cursor.style.left = cx + 'px';
-    cursor.style.top = cy + 'px';
-    requestAnimationFrame(animateCursor);
+  function tickCursor() {
+    rx += (mx - rx) * 0.13;
+    ry += (my - ry) * 0.13;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(tickCursor);
   }
-  animateCursor();
+  tickCursor();
 
-  // Scale on hover interactable elements
-  document.querySelectorAll('a,button,.faq-tab,.glass-card-feat').forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.style.transform = 'translate(-50%,-50%) scale(1.8)');
-    el.addEventListener('mouseleave', () => cursor.style.transform = 'translate(-50%,-50%) scale(1)');
+  const hoverTargets = 'a, button, .faq-tab, .glass-card, .card3d';
+  document.querySelectorAll(hoverTargets).forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
   });
+
+  // Hide when leaving window
+  document.addEventListener('mouseleave', () => { ring.style.opacity = '0'; dot.style.opacity = '0'; });
+  document.addEventListener('mouseenter', () => { ring.style.opacity = '1'; dot.style.opacity = '1'; });
 })();
 
-/* ── PARTICLE CANVAS ───────────────────────────────────────── */
-(function() {
-  const canvas = document.getElementById('particleCanvas');
+/* ── 4. PARTICLE CANVAS ───────────────────────────────────── */
+(function initParticles() {
+  const canvas = document.getElementById('bgCanvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  let W, H, particles = [];
+  let W, H, pts = [];
 
   function resize() {
     W = canvas.width = window.innerWidth;
@@ -112,70 +118,70 @@
   resize();
   window.addEventListener('resize', resize);
 
-  class Particle {
-    constructor() { this.reset(); }
-    reset() {
-      this.x = Math.random() * W;
-      this.y = Math.random() * H;
-      this.r = Math.random() * 1.5 + 0.3;
-      this.vx = (Math.random() - 0.5) * 0.3;
-      this.vy = (Math.random() - 0.5) * 0.3;
-      this.alpha = Math.random() * 0.4 + 0.1;
-      const colors = ['108,99,255','167,139,250','56,189,248'];
-      this.color = colors[Math.floor(Math.random() * colors.length)];
-    }
-    update() {
-      this.x += this.vx; this.y += this.vy;
-      if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
-    }
-    draw() {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${this.color},${this.alpha})`;
-      ctx.fill();
-    }
+  const COLORS = ['108,99,255','167,139,250','56,189,248'];
+  const COUNT = window.innerWidth < 600 ? 40 : 80;
+
+  function mkParticle() {
+    return {
+      x: Math.random() * (W || 800),
+      y: Math.random() * (H || 600),
+      r: Math.random() * 1.4 + 0.3,
+      vx: (Math.random() - 0.5) * 0.25,
+      vy: (Math.random() - 0.5) * 0.25,
+      a: Math.random() * 0.35 + 0.08,
+      c: COLORS[Math.floor(Math.random() * COLORS.length)]
+    };
   }
+  for (let i = 0; i < COUNT; i++) pts.push(mkParticle());
 
-  for (let i = 0; i < 80; i++) particles.push(new Particle());
-
-  function drawConnections() {
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx*dx + dy*dy);
-        if (dist < 120) {
+  function frame() {
+    ctx.clearRect(0, 0, W, H);
+    pts.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > W || p.y < 0 || p.y > H) { Object.assign(p, mkParticle()); }
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${p.c},${p.a})`;
+      ctx.fill();
+    });
+    // connections
+    for (let i = 0; i < pts.length; i++) {
+      for (let j = i + 1; j < pts.length; j++) {
+        const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
+        const d = Math.sqrt(dx*dx + dy*dy);
+        if (d < 110) {
           ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(108,99,255,${0.08 * (1 - dist/120)})`;
+          ctx.moveTo(pts[i].x, pts[i].y);
+          ctx.lineTo(pts[j].x, pts[j].y);
+          ctx.strokeStyle = `rgba(108,99,255,${0.07*(1-d/110)})`;
           ctx.lineWidth = 0.5;
           ctx.stroke();
         }
       }
     }
+    requestAnimationFrame(frame);
   }
-
-  function loop() {
-    ctx.clearRect(0, 0, W, H);
-    particles.forEach(p => { p.update(); p.draw(); });
-    drawConnections();
-    requestAnimationFrame(loop);
-  }
-  loop();
+  frame();
 })();
 
-/* ── NAVBAR SCROLL ─────────────────────────────────────────── */
-(function() {
-  const navbar = document.getElementById('navbar');
-  if (!navbar) return;
+/* ── 5. NAVBAR SCROLL ─────────────────────────────────────── */
+(function initNavbar() {
+  const nav = document.getElementById('navbar');
+  if (!nav) return;
+  let ticking = false;
   window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 40);
-  });
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        nav.classList.toggle('scrolled', window.scrollY > 40);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
 })();
 
-/* ── HAMBURGER ─────────────────────────────────────────────── */
-(function() {
+/* ── 6. HAMBURGER ─────────────────────────────────────────── */
+(function initHamburger() {
   const btn = document.getElementById('hamburger');
   const menu = document.getElementById('mobileMenu');
   if (!btn || !menu) return;
@@ -183,82 +189,168 @@
     btn.classList.toggle('open');
     menu.classList.toggle('open');
   });
-  // Close on link click
-  menu.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      btn.classList.remove('open');
-      menu.classList.remove('open');
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    btn.classList.remove('open');
+    menu.classList.remove('open');
+  }));
+})();
+
+/* ── 7. SCROLL REVEAL ─────────────────────────────────────── */
+(function initReveal() {
+  const els = document.querySelectorAll('.reveal, .reveal-right');
+  if (!els.length) return;
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
     });
+  }, { threshold: 0.1 });
+  els.forEach(el => io.observe(el));
+})();
+
+/* ── 8. INTERACTIVE 3D CARD ───────────────────────────────── */
+(function init3DCard() {
+  const scene = document.getElementById('scene3d');
+  const card = document.getElementById('card3d');
+  const shine = document.getElementById('cardShine');
+  if (!scene || !card) return;
+
+  const MAX_ROT = 18;
+  let animId = null;
+  let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
+  let isInteracting = false;
+
+  function lerpAngle() {
+    currentX += (targetX - currentX) * 0.1;
+    currentY += (targetY - currentY) * 0.1;
+    card.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg)`;
+    if (shine) {
+      const sx = 50 + targetY * 1.5;
+      const sy = 50 - targetX * 1.5;
+      shine.style.background = `radial-gradient(circle at ${sx}% ${sy}%, rgba(255,255,255,0.1), transparent 60%)`;
+    }
+    if (isInteracting || Math.abs(currentX) > 0.05 || Math.abs(currentY) > 0.05) {
+      animId = requestAnimationFrame(lerpAngle);
+    } else {
+      animId = null;
+    }
+  }
+
+  function startAnim() {
+    if (!animId) animId = requestAnimationFrame(lerpAngle);
+  }
+
+  // MOUSE
+  scene.addEventListener('mousemove', e => {
+    const r = scene.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    targetX = -y * MAX_ROT;
+    targetY = x * MAX_ROT;
+    isInteracting = true;
+    startAnim();
+  });
+
+  scene.addEventListener('mouseleave', () => {
+    targetX = 0; targetY = 0; isInteracting = false;
+    startAnim();
+  });
+
+  // TOUCH
+  scene.addEventListener('touchmove', e => {
+    if (e.touches.length !== 1) return;
+    const r = scene.getBoundingClientRect();
+    const t = e.touches[0];
+    const x = (t.clientX - r.left) / r.width - 0.5;
+    const y = (t.clientY - r.top) / r.height - 0.5;
+    targetX = -y * MAX_ROT;
+    targetY = x * MAX_ROT;
+    isInteracting = true;
+    startAnim();
+  }, { passive: true });
+
+  scene.addEventListener('touchend', () => {
+    targetX = 0; targetY = 0; isInteracting = false;
+    startAnim();
+  });
+
+  // Idle float when not interacting
+  let idleT = 0;
+  function idleFloat() {
+    if (!isInteracting) {
+      idleT += 0.012;
+      targetX = Math.sin(idleT) * 5;
+      targetY = Math.cos(idleT * 0.7) * 6;
+      startAnim();
+    }
+    requestAnimationFrame(idleFloat);
+  }
+  idleFloat();
+})();
+
+/* ── 9. GLASS CARD TILT ───────────────────────────────────── */
+(function initCardTilt() {
+  if (window.matchMedia('(pointer: coarse)').matches) return; // skip touch
+  document.querySelectorAll('.glass-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `translateY(-6px) rotateX(${-y*7}deg) rotateY(${x*7}deg)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
   });
 })();
 
-/* ── SCROLL REVEAL ─────────────────────────────────────────── */
-(function() {
-  const els = document.querySelectorAll('.reveal,.reveal-right');
-  if (!els.length) return;
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        obs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  els.forEach(el => obs.observe(el));
-})();
-
-/* ── FAQ — FETCH & PARSE README.md ─────────────────────────── */
-(function() {
-  const README_URL = 'https://raw.githubusercontent.com/lausiapempruy/DRI-Store-Web/main/README.md';
+/* ── 10. FAQ — FETCH & PARSE README.md ────────────────────── */
+(function initFAQ() {
   const tabsEl = document.getElementById('faqTabs');
   const bodyEl = document.getElementById('faqBody');
   if (!tabsEl || !bodyEl) return;
 
-  async function loadFAQ() {
+  const RAW_URL = 'https://raw.githubusercontent.com/lausiapempruy/DRI-Store-Web/main/README.md';
+
+  async function load() {
     try {
-      const res = await fetch(README_URL + '?nocache=' + Date.now());
+      const res = await fetch(RAW_URL + '?t=' + Date.now());
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const text = await res.text();
-      parseFAQ(text);
-    } catch (err) {
+      parse(text);
+    } catch(err) {
       bodyEl.innerHTML = `
         <div class="faq-error">
           <strong>⚠️ Gagal memuat FAQ.</strong>
-          <span>Pastikan file README.md ada di repo <code>lausiapempruy/DRI-Store-Web</code> dan repo bersifat public.</span>
-          <code>${err.message}</code>
+          <span>Pastikan repo <code>lausiapempruy/DRI-Store-Web</code> bersifat Public dan file <code>README.md</code> ada.</span>
+          <code style="font-size:12px;color:var(--tx3)">${err.message}</code>
         </div>`;
     }
   }
 
-  function parseFAQ(text) {
-    // Extract between markers if present
-    const startMarker = '<!-- DRI_STORE_FAQ_START -->';
-    const endMarker = '<!-- DRI_STORE_FAQ_END -->';
-    let content = text;
-    if (text.includes(startMarker)) {
-      const s = text.indexOf(startMarker) + startMarker.length;
-      const e = text.includes(endMarker) ? text.indexOf(endMarker) : text.length;
-      content = text.slice(s, e).trim();
-    }
+  function parse(text) {
+    // Extract between markers if exist
+    const S = '<!-- DRI_STORE_FAQ_START -->';
+    const E = '<!-- DRI_STORE_FAQ_END -->';
+    let content = text.includes(S)
+      ? text.slice(text.indexOf(S) + S.length, text.includes(E) ? text.indexOf(E) : text.length).trim()
+      : text;
 
-    // Split into sections by ## headings
-    const sectionRegex = /^## (.+)$/gm;
+    // Split by ## sections
     const sections = [];
-    let match;
-    const indices = [];
+    const lines = content.split('\n');
+    let cur = null;
 
-    while ((match = sectionRegex.exec(content)) !== null) {
-      indices.push({ title: match[1].trim(), index: match.index, end: 0 });
-    }
-
-    indices.forEach((sec, i) => {
-      sec.end = i + 1 < indices.length ? indices[i + 1].index : content.length;
-      const raw = content.slice(sec.index, sec.end).replace(/^## .+\n/, '').trim();
-      sections.push({ title: sec.title, raw });
+    lines.forEach(line => {
+      const m = line.match(/^## (.+)$/);
+      if (m) {
+        if (cur) sections.push(cur);
+        cur = { title: m[1].trim().replace(/^[^\w\s]+\s*/, ''), lines: [] };
+      } else if (cur) {
+        cur.lines.push(line);
+      }
     });
+    if (cur) sections.push(cur);
 
     if (!sections.length) {
-      bodyEl.innerHTML = '<div class="faq-error"><strong>Tidak ada FAQ ditemukan di README.md.</strong><span>Pastikan format menggunakan <code>## Section Title</code>.</span></div>';
+      bodyEl.innerHTML = '<div class="faq-error"><strong>Tidak ada FAQ ditemukan.</strong><span>Gunakan format <code>## Section Title</code> di README.md.</span></div>';
       return;
     }
 
@@ -268,100 +360,61 @@
       const btn = document.createElement('button');
       btn.className = 'faq-tab' + (i === 0 ? ' active' : '');
       btn.textContent = sec.title;
-      btn.dataset.index = i;
-      btn.addEventListener('click', () => switchTab(i));
+      btn.onclick = () => switchTab(i);
       tabsEl.appendChild(btn);
     });
 
     // Build panels
-    bodyEl.innerHTML = sections.map((sec, i) => `
-      <div class="faq-panel${i === 0 ? ' active' : ''}" data-panel="${i}">
-        ${parseQA(sec.raw)}
-      </div>
-    `).join('');
+    bodyEl.innerHTML = sections.map((sec, i) =>
+      `<div class="faq-panel${i === 0 ? ' active' : ''}" data-p="${i}">${buildQA(sec.lines.join('\n'))}</div>`
+    ).join('');
   }
 
-  function parseQA(text) {
-    // Parse **Q: ...** / A: ... pattern
-    const lines = text.split('\n');
+  function buildQA(text) {
     const items = [];
-    let currentQ = null;
-    let currentA = [];
+    let q = null, aLines = [];
 
-    lines.forEach(line => {
-      const qMatch = line.match(/^\*\*Q:\s*(.+?)\*\*$/);
-      const aMatch = line.match(/^A:\s*(.+)$/);
-
-      if (qMatch) {
-        if (currentQ) {
-          items.push({ q: currentQ, a: currentA.join('\n').trim() });
-        }
-        currentQ = qMatch[1];
-        currentA = [];
-      } else if (aMatch && currentQ) {
-        currentA.push(aMatch[1]);
-      } else if (line.trim() && currentQ && !line.startsWith('---') && !line.startsWith('#')) {
-        currentA.push(line.trim());
+    text.split('\n').forEach(line => {
+      const qm = line.match(/^\*\*Q:\s*(.+?)\*\*\s*$/);
+      const am = line.match(/^A:\s*(.+)$/);
+      if (qm) {
+        if (q) items.push({ q, a: aLines.join(' ').trim() });
+        q = qm[1]; aLines = [];
+      } else if (am && q) {
+        aLines.push(am[1]);
+      } else if (q && line.trim() && !line.startsWith('---') && !line.startsWith('#')) {
+        aLines.push(line.trim());
       }
     });
+    if (q) items.push({ q, a: aLines.join(' ').trim() });
 
-    if (currentQ) items.push({ q: currentQ, a: currentA.join('\n').trim() });
+    if (!items.length) return '<p style="color:var(--tx2);font-size:14px;padding:8px 0">Tidak ada pertanyaan di section ini.</p>';
 
-    if (!items.length) {
-      return '<p style="color:var(--text2);font-size:14px">Tidak ada pertanyaan di section ini.</p>';
-    }
-
-    return items.map(item => `
+    return items.map(it => `
       <div class="faq-item">
-        <div class="faq-q">${escHtml(item.q)}</div>
-        <div class="faq-a">${escHtml(item.a)}</div>
-      </div>
-    `).join('');
+        <div class="faq-q">${esc(it.q)}</div>
+        <div class="faq-a">${esc(it.a)}</div>
+      </div>`).join('');
   }
 
   function switchTab(idx) {
-    document.querySelectorAll('.faq-tab').forEach((t, i) => {
-      t.classList.toggle('active', i === idx);
-    });
-    document.querySelectorAll('.faq-panel').forEach((p, i) => {
-      p.classList.toggle('active', i === idx);
-    });
+    document.querySelectorAll('.faq-tab').forEach((t,i) => t.classList.toggle('active', i === idx));
+    document.querySelectorAll('.faq-panel').forEach((p,i) => p.classList.toggle('active', i === idx));
   }
 
-  function escHtml(str) {
-    return str
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#039;');
+  function esc(s) {
+    return String(s)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;').replace(/'/g,'&#039;');
   }
 
-  loadFAQ();
+  load();
 })();
 
-/* ── CARD 3D TILT ───────────────────────────────────────────── */
-(function() {
-  document.querySelectorAll('.glass-card-feat,.team-card').forEach(card => {
-    card.addEventListener('mousemove', e => {
-      const rect = card.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      card.style.transform = `translateY(-6px) rotateX(${-y * 8}deg) rotateY(${x * 8}deg)`;
-    });
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-    });
-  });
-})();
-
-/* ── SMOOTH ANCHOR SCROLL ──────────────────────────────────── */
+/* ── 11. SMOOTH ANCHOR SCROLL ─────────────────────────────── */
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
-    const target = document.querySelector(a.getAttribute('href'));
-    if (target) {
-      e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   });
 });
