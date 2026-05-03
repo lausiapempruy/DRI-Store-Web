@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
   <meta name="description" content="DRI Store — Roblox Model Store. Harga manusiawi, kualitas terjamin."/>
   <meta property="og:title" content="DRI Store — Roblox Model Store"/>
   <meta property="og:description" content="Roblox Model berkualitas dengan harga manusiawi."/>
@@ -11,32 +11,29 @@
   <title>DRI Store — Roblox Model Store</title>
   <link rel="stylesheet" href="style.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
-
   <div class="cursor" id="cursor"></div>
   <div class="cursor-dot" id="cursorDot"></div>
-  <canvas class="particle-canvas" id="particleCanvas"></canvas>
+  <canvas id="bgCanvas" class="bg-canvas"></canvas>
   <div class="noise-overlay"></div>
 
-  <!-- NAVBAR -->
   <nav class="navbar" id="navbar">
     <div class="nav-inner">
       <a href="#" class="nav-logo">
-        <img src="https://cdn.discordapp.com/attachments/1495330153377566740/1496850944548274396/DRI_STORE.png?ex=69f74013&is=69f5ee93&hm=33e11801e412730c5da4e7e92b617b8f54e68af5699114e09d1c0bb1850573f3&" alt="DRI Store" class="logo-img" onerror="this.style.display='none';document.querySelector('.logo-text').style.display='block'"/>
-        <span class="logo-text" style="display:none">DRI<em>Store</em></span>
+        <img src="https://cdn.discordapp.com/attachments/1495330153377566740/1496850944548274396/DRI_STORE.png?ex=69f74013&is=69f5ee93&hm=33e11801e412730c5da4e7e92b617b8f54e68af5699114e09d1c0bb1850573f3&" alt="DRI Store" class="logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+        <span class="logo-fallback">DRI<em>Store</em></span>
       </a>
       <div class="nav-links">
         <a href="#about" class="nav-link">About</a>
         <a href="#team" class="nav-link">Team</a>
         <a href="#faq" class="nav-link">FAQ</a>
-        <a href="https://discord.gg/Us7MHb8VQE" target="_blank" rel="noopener noreferrer" class="btn-discord-nav" id="discordNavBtn">
+        <a class="btn-discord-nav" id="discordNavBtn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.102 18.079.114 18.1.132 18.113a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
           Join Server
         </a>
       </div>
-      <button class="hamburger" id="hamburger">
+      <button class="hamburger" id="hamburger" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -44,24 +41,19 @@
       <a href="#about">About</a>
       <a href="#team">Team</a>
       <a href="#faq">FAQ</a>
-      <a href="https://discord.gg/Us7MHb8VQE" target="_blank" rel="noopener noreferrer" id="discordMobileBtn" class="mobile-discord-btn">Join Discord Server</a>
+      <a class="mobile-discord-btn" id="discordMobileBtn">Join Discord Server</a>
     </div>
   </nav>
 
-  <!-- HERO -->
   <section class="hero" id="home">
     <div class="hero-orbs">
       <div class="orb o1"></div>
       <div class="orb o2"></div>
       <div class="orb o3"></div>
     </div>
-    <div class="hero-grid"></div>
-    <div class="hero-inner container">
+    <div class="container hero-inner">
       <div class="hero-left reveal">
-        <div class="hero-badge">
-          <span class="badge-pulse"></span>
-          Roblox Model Store
-        </div>
+        <div class="hero-badge"><span class="badge-pulse"></span>Roblox Model Store</div>
         <h1 class="hero-title">
           <span>Produk Roblox</span>
           <span class="gt">Berkualitas.</span>
@@ -69,7 +61,7 @@
         </h1>
         <p class="hero-p">DRI Store menyediakan Roblox Model premium dengan harga manusiawi dan layanan ramah. Semua produk tersertifikasi BPOM DS.</p>
         <div class="hero-btns">
-          <a href="https://discord.gg/Us7MHb8VQE" target="_blank" rel="noopener noreferrer" class="btn-primary" id="heroDiscordBtn">
+          <a class="btn-primary" id="heroDiscordBtn">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.102 18.079.114 18.1.132 18.113a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
             Lihat Produk di Discord
           </a>
@@ -84,20 +76,31 @@
         </div>
       </div>
       <div class="hero-right reveal-right">
-        <div class="hero-card-wrap">
-          <div class="hero-glass-card">
-            <img src="https://cdn.discordapp.com/attachments/1495330153377566740/1496850944548274396/DRI_STORE.png?ex=69f74013&is=69f5ee93&hm=33e11801e412730c5da4e7e92b617b8f54e68af5699114e09d1c0bb1850573f3&" alt="DRI Store" class="hero-logo-img" onerror="this.outerHTML='<div class=hero-logo-fallback>DRI<br>Store</div>'"/>
-            <div class="glass-shine"></div>
+        <div class="scene3d-wrap">
+          <div class="scene3d" id="scene3d">
+            <div class="card3d" id="card3d">
+              <div class="card3d-front">
+                <div class="card3d-glow"></div>
+                <img src="https://cdn.discordapp.com/attachments/1495330153377566740/1496850944548274396/DRI_STORE.png?ex=69f74013&is=69f5ee93&hm=33e11801e412730c5da4e7e92b617b8f54e68af5699114e09d1c0bb1850573f3&" alt="DRI Store" class="card3d-img" onerror="this.outerHTML='<div class=card3d-fallback>DRI<br>Store</div>'"/>
+                <div class="card3d-info">
+                  <span class="card3d-name">DRI Store</span>
+                  <span class="card3d-sub">Roblox Model Store</span>
+                </div>
+                <div class="card3d-chips">
+                  <span>🧱 Model</span>
+                  <span>✅ BPOM DS</span>
+                  <span>⚡ Fast</span>
+                </div>
+                <div class="card3d-shine" id="cardShine"></div>
+              </div>
+            </div>
           </div>
-          <div class="chip c1"><span>🧱</span> Roblox Model</div>
-          <div class="chip c2"><span>✅</span> BPOM DS</div>
-          <div class="chip c3"><span>⚡</span> Fast Delivery</div>
+          <p class="scene3d-hint">✦ Gerakkan / sentuh kartu</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ABOUT -->
   <section id="about" class="section">
     <div class="container">
       <div class="sec-head reveal">
@@ -105,36 +108,15 @@
         <h2 class="sec-title">Kenapa DRI Store?</h2>
         <p class="sec-sub">Kami hadir untuk memberikan akses ke Roblox Model berkualitas dengan harga yang tidak mencekik.</p>
       </div>
-      <div class="about-grid">
-        <div class="glass-card-feat reveal" style="--d:.05s">
-          <div class="feat-icon">🧱</div>
-          <h3>Roblox Models</h3>
-          <p>Koleksi model Roblox berkualitas tinggi, siap pakai langsung di game kamu.</p>
-          <div class="shimmer"></div>
-        </div>
-        <div class="glass-card-feat reveal" style="--d:.15s">
-          <div class="feat-icon">💸</div>
-          <h3>Harga Manusiawi</h3>
-          <p>Tidak perlu kantong tebal untuk dapat produk bagus. Harga kami transparan dan adil.</p>
-          <div class="shimmer"></div>
-        </div>
-        <div class="glass-card-feat reveal" style="--d:.25s">
-          <div class="feat-icon">🤝</div>
-          <h3>Layanan Ramah</h3>
-          <p>Tim kami siap membantu dari pembelian sampai instalasi. Tidak ada yang ditinggal bingung.</p>
-          <div class="shimmer"></div>
-        </div>
-        <div class="glass-card-feat reveal" style="--d:.35s">
-          <div class="feat-icon">🏷️</div>
-          <h3>BPOM DS</h3>
-          <p>Sistem sertifikasi internal memastikan setiap produk layak sebelum dijual ke publik.</p>
-          <div class="shimmer"></div>
-        </div>
+      <div class="cards-grid">
+        <div class="glass-card reveal" style="--d:.05s"><div class="gc-icon">🧱</div><h3>Roblox Models</h3><p>Koleksi model Roblox berkualitas tinggi, siap pakai langsung di game kamu.</p><div class="gc-shimmer"></div></div>
+        <div class="glass-card reveal" style="--d:.15s"><div class="gc-icon">💸</div><h3>Harga Manusiawi</h3><p>Tidak perlu kantong tebal untuk dapat produk bagus. Harga kami transparan dan adil.</p><div class="gc-shimmer"></div></div>
+        <div class="glass-card reveal" style="--d:.25s"><div class="gc-icon">🤝</div><h3>Layanan Ramah</h3><p>Tim kami siap membantu dari pembelian sampai instalasi. Tidak ada yang ditinggal bingung.</p><div class="gc-shimmer"></div></div>
+        <div class="glass-card reveal" style="--d:.35s"><div class="gc-icon">🏷️</div><h3>BPOM DS</h3><p>Sistem sertifikasi internal memastikan setiap produk layak sebelum dijual ke publik.</p><div class="gc-shimmer"></div></div>
       </div>
     </div>
   </section>
 
-  <!-- TEAM -->
   <section id="team" class="section section-alt">
     <div class="container">
       <div class="sec-head reveal">
@@ -143,30 +125,14 @@
         <p class="sec-sub">Orang-orang di balik DRI Store.</p>
       </div>
       <div class="team-grid">
-        <div class="team-card glass-card-feat reveal" style="--d:.05s">
-          <div class="team-ava">👑</div>
-          <h3 class="team-name">Owner</h3>
-          <span class="team-role">Itz Me Andra Aseli D1</span>
-          <div class="shimmer"></div>
-        </div>
-        <div class="team-card glass-card-feat reveal" style="--d:.15s">
-          <div class="team-ava">⚙️</div>
-          <h3 class="team-name">Developer</h3>
-          <span class="team-role">-</span>
-          <div class="shimmer"></div>
-        </div>
-        <div class="team-card glass-card-feat reveal" style="--d:.25s">
-          <div class="team-ava">🛡️</div>
-          <h3 class="team-name">Moderator</h3>
-          <span class="team-role">-</span>
-          <div class="shimmer"></div>
-        </div>
+        <div class="glass-card team-card reveal" style="--d:.05s"><div class="team-ava">👑</div><h3 class="team-name">Owner</h3><span class="team-role">Founder &amp; Lead</span><div class="gc-shimmer"></div></div>
+        <div class="glass-card team-card reveal" style="--d:.15s"><div class="team-ava">⚙️</div><h3 class="team-name">Developer</h3><span class="team-role">Roblox Scripter</span><div class="gc-shimmer"></div></div>
+        <div class="glass-card team-card reveal" style="--d:.25s"><div class="team-ava">🛡️</div><h3 class="team-name">Moderator</h3><span class="team-role">Community Manager</span><div class="gc-shimmer"></div></div>
       </div>
-      <p class="team-note reveal">-</p>
+      <p class="team-note reveal">Edit bagian <code>#team</code> di <code>index.html</code> untuk update anggota tim.</p>
     </div>
   </section>
 
-  <!-- FAQ -->
   <section id="faq" class="section">
     <div class="container">
       <div class="sec-head reveal">
@@ -175,23 +141,19 @@
         <p class="sec-sub">Data langsung dari <code>README.md</code> di GitHub.</p>
       </div>
       <div class="faq-tabs" id="faqTabs"></div>
-      <div class="faq-body glass-card-feat" id="faqBody">
-        <div class="faq-loading">
-          <div class="ring-loader"></div>
-          <span>Memuat FAQ dari README.md...</span>
-        </div>
+      <div class="glass-card faq-body" id="faqBody">
+        <div class="faq-loading"><div class="ring-loader"></div><span>Memuat FAQ dari README.md...</span></div>
       </div>
     </div>
   </section>
 
-  <!-- CTA DISCORD -->
   <section class="cta-section">
     <div class="container">
       <div class="cta-glass reveal">
         <div class="cta-orb"></div>
         <h2>Semua Produk Ada di Discord</h2>
         <p>Product list, harga, dan pembelian dilakukan langsung di server Discord DRI Store.</p>
-        <a href="https://discord.gg/Us7MHb8VQE" target="_blank" rel="noopener noreferrer" class="btn-primary" id="ctaDiscordBtn">
+        <a class="btn-primary" id="ctaDiscordBtn">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.102 18.079.114 18.1.132 18.113a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
           Join Discord Server
         </a>
@@ -199,7 +161,6 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
       <div class="footer-row">
@@ -211,7 +172,7 @@
           <a href="#about">About</a>
           <a href="#team">Team</a>
           <a href="#faq">FAQ</a>
-          <a href="https://discord.gg/Us7MHb8VQE" target="_blank" rel="noopener noreferrer" id="footerDiscordBtn">Discord</a>
+          <a id="footerDiscordBtn" style="cursor:pointer">Discord</a>
         </div>
       </div>
       <div class="footer-bot">
